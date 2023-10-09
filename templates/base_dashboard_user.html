@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+{% load static %}
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>ButacaVentura</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <!-- fevicon -->
+    <link rel="icon" href="images/fevicon.png" type="image/gif" />
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
+
+    <style>      
+      .bg {
+        /* The image used */
+        background-image: url("{% static 'images/back_register.jpg' %}");
+      
+        /* Full height */
+        height: 100%;
+      
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+  </style>
+
+</head>
+
+<body>
+
+<div class='bg'>
+
+<nav class="navbar navbar-expand-lg p-2">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">
+          <img src="{% static 'images/logo_nav.png' %}" alt="Logo" width="150" height="40" class="d-inline-block align-text-top">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="fa-solid fa-bars" style="color: white;"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav justify-content-center w-100">
+          <li class="nav-item">
+            <a class="nav-link nav-changer mx-3" aria-current="page" href="{% url 'home' %}"><i><img src="{% static 'images/icono_home.png' %}" width="30" height="30" class="d-inline-block me-3"></i>Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-changer mx-3" href="#"><i><img src="{% static 'images/icono_nosotros.png' %}" width="30" height="30" class="d-inline-block me-3"></i>Nosotros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-changer mx-3" href="#"><i><img src="{% static 'images/icono_eventos.png' %}" width="30" height="30" class="d-inline-block me-3"></i>Eventos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link nav-changer mx-3" href="#"><i><img src="{% static 'images/icono_pregunta.png' %}" width="30" height="30" class="d-inline-block me-3"></i>FAQ</a>
+          </li>
+        </ul>
+
+        <ul class="navbar-nav d-flex">
+          {% if user.is_authenticated %}
+          {% if user.status == "admin" %}
+          <li class="nav-item px-3">
+            <a href="{% url 'dashboard' %}" class="nav-link active text-white" >Hola, {{ user.username|default:'Guest' }}!</a>
+          </li>
+          {% elif user.status == "Promotor" %}
+          <li class="nav-item px-3">
+            <a href="{% url 'dashboard_promoter' %}" class="nav-link active text-white" >Hola, {{ user.username|default:'Guest' }}!</a>
+          </li>
+          {% else %}
+          <li class="nav-item px-3">
+            <a href="{% url 'dashboard_user' %}" class="nav-link active text-white" >Hola, {{ user.username|default:'Guest' }}!</a>
+          </li>
+          {% endif %}
+          <li class="nav-item px-3">
+          <a class="nav-link button-88 shadow" role="button" href="{% url 'logout' %}">Salir</a>
+          {% else %}
+          <li class="mx-2"><a class="nav-link button-87 shadow" role="button" href="{% url 'register' %}">Registro</a></li>
+          <li class="mx-2"><a class="nav-link button-87 shadow" role="button" href="{% url 'login' %}">Ingresar</a></li>
+          {% endif %}
+              </ul>
+          </li>
+      </ul>
+      </div>
+    </div>
+</nav>
+</div>
+
+      
+  {% block content %}{% endblock content %}
+</body>
+
+
+<footer>
+<div class="backgroundhome termsfont text-center">
+  <a href="/terminosycondiciones/" style="color:#ffffff; border-bottom: 3px solid #efab35; display: inline-block;">
+    TÉRMINOS Y CONDICIONES
+  </a>
+  -
+  <a href="/administracion_general/" style=" color:#ffffff; border-bottom: 3px solid #efab35; display: inline-block;">
+    ADMINISTRACIÓN
+  </a>
+  -
+  <a href="/administracion_general/" style=" color:#ffffff; border-bottom: 3px solid #efab35; display: inline-block;">
+    PROMOTORES
+  </a>
+
+  <div class="">TODOS LOS DERECHOS RESERVADOS - BUTACAVENTURA
+    © 2023
+  </div>
+</div>
+</footer>
+
+
+<!-- Javascript files-->
+<script src=" https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js "></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+{% block script %}{% endblock script %}
+<!-- HTML !--
+
